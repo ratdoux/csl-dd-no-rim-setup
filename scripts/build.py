@@ -103,15 +103,15 @@ def package(bundle, source_ui):
         copy_licenses(stage)
         launchers(stage)
         shutil.copy2(ROOT / 'USER-GUIDE.txt', stage / 'README.txt')
-        version = re.search(r"version='CSL DD No-Rim Setup ([^']+)'",
-                            (ROOT / 'src/launcher.py').read_text(encoding='utf-8')).group(1)
+        version = re.search(r"APP_VERSION = '([^']+)'",
+                            (ROOT / 'src/version.py').read_text(encoding='utf-8')).group(1)
         info = {
             'version': version, 'built_at_utc': datetime.now(timezone.utc).isoformat(),
             'target': 'Windows x64', 'python': platform.python_version(),
             'tcl': source_ui['tcl'], 'pyinstaller': metadata.version('pyinstaller'),
             'pyinstaller_hooks': metadata.version('pyinstaller-hooks-contrib'),
             'git': git_info(), 'hardware_commands_during_build': False,
-            'checks': ['fake-device unit tests', 'source Tk initialization',
+            'checks': ['fake-device engine and GUI tests', 'native Shell shortcut tests', 'source Tk initialization',
                        'relocated ZIP checksum, CLI and Tk verification'],
         }
         (stage / 'BUILD-INFO.json').write_text(json.dumps(info, indent=2) + '\n', encoding='utf-8')
@@ -145,7 +145,7 @@ def main():
     run(sys.executable, '-m', 'unittest', 'discover', '-s', 'src', '-p', 'test_*.py', '-v')
     ui = json.loads(run(sys.executable, 'src/launcher.py', 'check-ui',
                         capture_output=True, text=True).stdout)
-    if not all(ui.get(k) for k in ('gui_initialized', 'test_disabled', 'confirmation_disabled')):
+    if not all(ui.get(k) for k in ('gui_initialized', 'test_disabled', 'confirmation_disabled', 'shortcut_button_present')):
         raise RuntimeError('Source GUI initialization or initial button states failed: ' + repr(ui))
     run(sys.executable, '-m', 'PyInstaller', '--clean', '--noconfirm',
         '--distpath', ROOT / 'dist', '--workpath', ROOT / 'build', ROOT / 'src/setup.spec')

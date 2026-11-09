@@ -11,9 +11,16 @@ Extract the **entire** portable ZIP to a writable folder and open `Setup.cmd`.
 Connect one CSL DD in yellow PC compatibility mode. The normal Fanatec drivers
 are still needed for gaming; Python is bundled in the download.
 
-Follow the setup steps, test with low-strength FFB in a game, then select
-**It worked - create launcher**. Use the resulting `Enable.cmd` after restarting
-the base. `Status.cmd` reads status and `Disable.cmd` sends the disable command.
+The GUI checks the connected base and firmware automatically. When it is ready,
+check the readiness box and click **Enable FFB**. Test with low-strength FFB in
+a game, then click **FFB works - save setup** to create `Enable.cmd`.
+
+Click **Add desktop shortcut** to put **Enable CSL DD FFB** on your Windows
+Desktop. Use that shortcut or `Enable.cmd` before starting your game after
+restarting the base. Keep the extracted app folder in place; the shortcut points
+to it. The GUI also recognizes your saved setup and can enable it directly.
+**Show technical details** contains firmware-image inspection and review notes.
+`Status.cmd` reads status and `Disable.cmd` sends the disable command.
 See [USER-GUIDE.txt](USER-GUIDE.txt) for the complete procedure and limitations.
 
 > **Firmware compatibility disclaimer:** No-rim FFB has been confirmed on
@@ -43,8 +50,9 @@ and a fresh power-cycle retest has not been completed. The application sends
 the existing override command; it does not automatically run a force pulse.
 See [VALIDATION.md](VALIDATION.md) for the observed results and their limits.
 
-Version 2.0.1 updates the 1.5.1.1 review record. An existing 1.5.1.1 saved profile
-from an older release needs Setup again because its profile fingerprint changes.
+Version 2.1.0 adds the guided interface and desktop shortcut creation. Saved
+profiles from 2.0.1 remain compatible. Version 2.0.1 changed the 1.5.1.1 review
+record; profiles for that firmware from 2.0.0 still need Setup again.
 
 ## Build on Windows x64
 
@@ -87,19 +95,19 @@ pinned and GitHub actions pinned to reviewed release commits. Successful runs
 attach the portable ZIP, checksum, and build metadata as a downloadable artifact
 for 30 days.
 
-Pushing a version tag such as `v2.0.1` also creates a **published GitHub Release**
+Pushing a version tag such as `v2.1.0` also creates a **published GitHub Release**
 after the build and verification succeed. The release includes the portable ZIP,
 its SHA-256 checksum, build metadata, and automatically generated release notes.
 Rerunning a tag's workflow updates its existing release assets. Tags containing
 a hyphen, such as `v2.1.0-rc.1`, are marked as prereleases.
 
-The tag must be `v` followed by the app version in `src/launcher.py`; a mismatch
+The tag must be `v` followed by the app version in `src/version.py`; a mismatch
 stops publication. For the current version, after committing the changes and
 configuring the GitHub remote:
 
 ```powershell
-git tag v2.0.1
-git push origin v2.0.1
+git tag v2.1.0
+git push origin v2.1.0
 ```
 
 Branch pushes, pull requests, and manual runs only produce build artifacts.
@@ -121,6 +129,11 @@ the fixed HID reports; `src/catalog.json` contains the reviewed firmware
 profiles. Adding a firmware version requires reviewing its handler, disable
 semantics, output gate, and status layout, followed by hardware validation.
 Do not infer compatibility from the firmware number or a short pattern match.
+
+`src/wizard.py` provides the GUI. `src/desktop.py` creates a native Windows
+shortcut using Shell APIs, including redirected/OneDrive Desktops. Shortcut
+creation does not execute the launcher or connect to hardware. Tests cover GUI
+command gating with fake devices and actual Shell links in temporary folders.
 
 ## License and attribution
 

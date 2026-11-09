@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.1.0 — 2026-11-09
+
+- Guide users through automatic base/firmware checks, Enable FFB, and game
+  confirmation in a simpler GUI, with optional technical details.
+- Recognize saved setups for daily enabling directly from the GUI.
+- Add a native desktop shortcut to the confirmed Enable.cmd, respecting
+  redirected Desktops and preserving unrelated existing shortcuts.
+- Add GUI state and native shortcut tests; bundle both features in the portable
+  app without new dependencies. Existing 2.0.1 saved setups remain compatible.
+
+Detection and shortcut creation send no enable command. The reviewed firmware
+profiles, override reports and game-confirmation requirement are unchanged.
+
 ## 2.0.1 — 2026-11-09
 
 - Record successful standalone and in-game no-rim FFB on CSL DD firmware 1.5.1.1.

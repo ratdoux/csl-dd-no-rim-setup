@@ -1,4 +1,4 @@
-CSL DD No-Rim Setup - Windows x64 - version 2.0.1
+CSL DD No-Rim Setup - Windows x64 - version 2.1.0
 
 FIRMWARE COMPATIBILITY DISCLAIMER
 
@@ -16,18 +16,37 @@ FIRST USE
 2. Connect one CSL DD in yellow PC compatibility mode. Normal Fanatec drivers
    are still needed for gaming. Python is included; no separate install needed.
 3. Open CSL-DD-No-Rim-Setup.exe (or Setup.cmd).
-4. The app reads the base version and looks for matching installed firmware.
-   It can also inspect an encrypted or plaintext matching .hex firmware file.
+4. The app automatically checks the base and firmware. Use "Check again" if
+   you reconnect it. "Show technical details" explains the checks and offers
+   inspection of an encrypted or plaintext matching .hex firmware file.
 5. When a reviewed profile is available, clear the wheel, close games/FFB tests,
-   check the readiness box, and click "Test command and enable for game".
+   check the readiness box, and click "Enable FFB".
 6. Try steering and LOW-strength FFB in a game. Return to Setup and click
-   "It worked - create launcher" only if the test actually worked.
-7. Next time, double-click the newly created Enable.cmd in this same folder.
+   "FFB works - save setup" only if the test actually worked.
+7. Optionally click "Add desktop shortcut". It creates "Enable CSL DD FFB"
+   on your Windows Desktop, pointing to Enable.cmd in this folder.
+8. Next time, run the desktop shortcut or Enable.cmd before starting a game.
+   You can also reopen the GUI, check the readiness box and click Enable FFB.
+   A matching saved setup does not need to be confirmed again each time.
 
 Enable.cmd is deliberately absent until the user's trial and game confirmation
 are complete. No profile is pre-approved in the shared package.
 
 Status.cmd only reads status. Disable.cmd sends the reviewed disable command.
+
+DESKTOP SHORTCUT
+
+The app uses your Windows Desktop location, including a redirected or OneDrive
+Desktop. Adding the same shortcut again does not create duplicates. If another
+file already uses its name, that file is preserved and a numbered name is used.
+Creating a shortcut does not send any command to the wheelbase.
+
+Keep the complete app folder in place. A shortcut is a link, not a standalone
+copy of the app. If you move the folder, reopen Setup from the new location and
+add a new shortcut. Remove the old shortcut yourself if you no longer need it.
+The button is available after a confirmed setup and Enable.cmd exist. It can
+create the shortcut while the base is disconnected; the launcher checks the
+connected base when you later run it.
 
 WHAT "CHECK FIRMWARE" MEANS
 
@@ -90,6 +109,8 @@ Enable.cmd always checks the connected device against that saved configuration.
 A changed firmware, device path/USB port, or review profile requires Setup again.
 Version 2.0.1 changes the 1.5.1.1 review record; older saved profiles for that
 firmware need confirmation again. A shared package never includes your profile.
+Version 2.1.0 keeps 2.0.1 profiles compatible. When updating an existing folder,
+keep your setup-profile.json and Enable.cmd together with the new app files.
 Windows device paths are connection identifiers, not cryptographic hardware
 serials; an identical device on the same port may be indistinguishable.
 Profiles are local settings, not signed security certificates. Do not copy a
@@ -100,7 +121,7 @@ The source folder and licenses are included for inspection and redistribution.
 
 MOTOR BEHAVIOR AND PERSISTENCE
 
-Detection/image inspection never enables the motor. The test button explicitly
+Detection/image inspection never enables the motor. The Enable FFB button explicitly
 enables FFB and leaves it enabled for the game trial. The app creates no force
 effect itself; a game or other application can produce forces afterward.
 Enable/disable commands clear effect slots when sent, so run before your game.
@@ -122,6 +143,8 @@ records the actual build versions and Git revision. Fake-device tests cover
 transitions, manual-vs-automatic reporting, cleanup, identity/firmware changes,
 and the required user confirmation. The pipeline verifies package checksums,
 CLI startup and GUI initialization after relocation, without external Python.
+GUI tests use fake hardware; desktop-shortcut tests use temporary folders and
+never run their targets.
 Build checks do not send hardware commands or perform a game test.
 
 Both 1.1.8.5 and 1.5.1.1 were tested on the original CSL DD. The latter was

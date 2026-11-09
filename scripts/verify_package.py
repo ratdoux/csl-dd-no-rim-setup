@@ -14,7 +14,9 @@ REQUIRED = {
     'CSL-DD-No-Rim.exe', 'CSL-DD-No-Rim-Setup.exe', '_internal/catalog.json',
     'Setup.cmd', 'Status.cmd', 'Disable.cmd', 'LICENSE.txt', 'README.txt',
     'BUILD-INFO.json', 'SHA256SUMS.txt', 'source/src/setup.spec',
-    'source/src/launcher.py', 'source/scripts/build.py',
+    'source/src/launcher.py', 'source/src/wizard.py', 'source/src/desktop.py',
+    'source/src/version.py', 'source/src/test_wizard.py', 'source/src/test_desktop.py',
+    'source/scripts/build.py',
     'source/scripts/verify_package.py', 'source/requirements-build.txt',
     'source/VALIDATION.md', 'source/CHANGELOG.md',
     'licenses/Python-LICENSE.txt', 'licenses/PyInstaller-COPYING.txt',
@@ -74,7 +76,7 @@ def verify_package(path):
             if version != 'CSL DD No-Rim Setup ' + info['version']:
                 raise RuntimeError('Executable version does not match build metadata.')
             ui = json.loads(run('check-ui'))
-            if not all(ui.get(k) for k in ('gui_initialized', 'test_disabled', 'confirmation_disabled')):
+            if not all(ui.get(k) for k in ('gui_initialized', 'test_disabled', 'confirmation_disabled', 'shortcut_button_present')):
                 raise RuntimeError('Packaged GUI initialization or initial state check failed: ' + repr(ui))
             return {'files_checked': len(checked), 'version': version, 'gui': ui,
                     'relocated_without_external_python': True, 'hardware_accessed': False}
