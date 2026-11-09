@@ -16,6 +16,14 @@ Follow the setup steps, test with low-strength FFB in a game, then select
 the base. `Status.cmd` reads status and `Disable.cmd` sends the disable command.
 See [USER-GUIDE.txt](USER-GUIDE.txt) for the complete procedure and limitations.
 
+> **Firmware compatibility disclaimer:** The no-rim override has only been
+> tested on hardware running CSL DD firmware **1.1.8.5**. It is expected to work
+> on any CSL DD firmware that implements the same no-rim FFB command with the
+> same parameters and behavior, but this has not been verified on other
+> versions and is not guaranteed. Status reporting can differ between versions.
+> The app still blocks unreviewed firmware until a compatible profile is added;
+> the command's presence alone does not establish full app compatibility.
+
 | Firmware | Verification available |
 | --- | --- |
 | 1.1.8.5 | Reviewed and tested on a CSL DD with an 8 Nm supply. Setup checks a reversible status transition and requires game confirmation. |
@@ -67,7 +75,26 @@ excluded from Git. A generated ZIP can be checked again with:
 requests, and manual dispatch. It uses the same build script, with dependencies
 pinned and GitHub actions pinned to reviewed release commits. Successful runs
 attach the portable ZIP, checksum, and build metadata as a downloadable artifact
-for 30 days. It does not publish a GitHub Release.
+for 30 days.
+
+Pushing a version tag such as `v2.0.0` also creates a **published GitHub Release**
+after the build and verification succeed. The release includes the portable ZIP,
+its SHA-256 checksum, build metadata, and automatically generated release notes.
+Rerunning a tag's workflow updates its existing release assets. Tags containing
+a hyphen, such as `v2.1.0-rc.1`, are marked as prereleases.
+
+The tag must be `v` followed by the app version in `src/launcher.py`; a mismatch
+stops publication. For the current version, after committing the changes and
+configuring the GitHub remote:
+
+```powershell
+git tag v2.0.0
+git push origin v2.0.0
+```
+
+Branch pushes, pull requests, and manual runs only produce build artifacts.
+Release publication runs in a separate job with `contents: write`; the build
+job retains read-only repository access.
 
 Push this repository to GitHub to run the workflow there. Local verification
 does not establish that a hosted Actions run has succeeded.

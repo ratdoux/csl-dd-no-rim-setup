@@ -1,5 +1,14 @@
 CSL DD No-Rim Setup - Windows x64 - version 2.0.0
 
+FIRMWARE COMPATIBILITY DISCLAIMER
+
+The no-rim override has only been tested on hardware running CSL DD firmware
+1.1.8.5. It is expected to work on any CSL DD firmware that implements the same
+no-rim FFB command with the same parameters and behavior, but this has not been
+verified on other versions and is not guaranteed. Status reporting can differ.
+The app still blocks unreviewed firmware until a compatible profile is added;
+the command's presence alone does not establish full app compatibility.
+
 FIRST USE
 
 1. Extract the complete folder to a writable location, such as your Desktop.
