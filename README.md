@@ -95,7 +95,7 @@ pinned and GitHub actions pinned to reviewed release commits. Successful runs
 attach the portable ZIP, checksum, and build metadata as a downloadable artifact
 for 30 days.
 
-Pushing a version tag such as `v2.1.0` also creates a **published GitHub Release**
+Pushing a version tag such as `v2.1.1` also creates a **published GitHub Release**
 after the build and verification succeed. The release includes the portable ZIP,
 its SHA-256 checksum, build metadata, and automatically generated release notes.
 Rerunning a tag's workflow updates its existing release assets. Tags containing
@@ -106,8 +106,8 @@ stops publication. For the current version, after committing the changes and
 configuring the GitHub remote:
 
 ```powershell
-git tag v2.1.0
-git push origin v2.1.0
+git tag v2.1.1
+git push origin v2.1.1
 ```
 
 Branch pushes, pull requests, and manual runs only produce build artifacts.

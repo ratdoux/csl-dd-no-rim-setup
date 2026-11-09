@@ -1,4 +1,4 @@
-CSL DD No-Rim Setup - Windows x64 - version 2.1.0
+CSL DD No-Rim Setup - Windows x64 - version 2.1.1
 
 FIRMWARE COMPATIBILITY DISCLAIMER
 

@@ -271,7 +271,7 @@ class SetupWindow:
                                   if self.profile['readback'] == 'manual' and not self.saved_matches else ''))
             if not self.saved_matches:
                 self.saved_text.set('After enabling, try FFB in a game. Return here and confirm only if it works.')
-            self.message.set('Check the box below when you are ready. Detection has not enabled FFB.')
+            self.message.set('Check the readiness box when you are ready. Detection has not enabled FFB.')
         self.update_controls()
 
     def enable(self):

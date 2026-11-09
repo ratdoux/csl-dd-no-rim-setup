@@ -30,7 +30,7 @@ class DesktopTests(unittest.TestCase):
     def test_native_shortcut_target_and_repeat_creation(self):
         confirmed_folder(self.folder)
         link = create_desktop_shortcut(self.folder, destination=self.desktop)
-        self.assertEqual(shortcut_target(link), self.folder / 'Enable.cmd')
+        self.assertTrue(shortcut_target(link).samefile(self.folder / 'Enable.cmd'))
         self.assertEqual(create_desktop_shortcut(self.folder, destination=self.desktop), link)
         self.assertEqual(len(list(self.desktop.iterdir())), 1)
 
@@ -41,7 +41,7 @@ class DesktopTests(unittest.TestCase):
         link = create_desktop_shortcut(self.folder, destination=self.desktop)
         self.assertEqual(link.name, 'Enable CSL DD FFB (2).lnk')
         self.assertEqual(existing.read_bytes(), b'unrelated existing file')
-        self.assertEqual(shortcut_target(link), self.folder / 'Enable.cmd')
+        self.assertTrue(shortcut_target(link).samefile(self.folder / 'Enable.cmd'))
 
     def test_missing_confirmation_or_runtime_creates_nothing(self):
         with self.assertRaises(RuntimeError):

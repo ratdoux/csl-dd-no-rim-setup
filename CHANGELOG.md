@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.1 — 2026-11-09
+
+- Compare shortcut targets by file identity in tests, so Windows short folder
+  aliases on GitHub runners are accepted alongside their full paths.
+- Clarify the readiness-box prompt in the GUI footer.
+
+The 2.1.0 tag's release build was blocked by the path-comparison tests; 2.1.1
+contains the same GUI and shortcut features with that build check corrected.
+
 ## 2.1.0 — 2026-11-09
 
 - Guide users through automatic base/firmware checks, Enable FFB, and game
