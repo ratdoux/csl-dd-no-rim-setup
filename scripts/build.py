@@ -22,7 +22,7 @@ BUNDLE_NAME = 'CSL-DD-No-Rim-Setup-Portable'
 ARCHIVE_NAME = 'CSL-DD-No-Rim-Setup-Windows-x64.zip'
 FORBIDDEN = {'setup-profile.json', 'enable.cmd'}
 ROOT_SOURCE = (
-    'README.md', 'USER-GUIDE.txt', 'LICENSE.txt', 'requirements-build.txt',
+    'README.md', 'USER-GUIDE.txt', 'VALIDATION.md', 'CHANGELOG.md', 'LICENSE.txt', 'requirements-build.txt',
     'Build.cmd', '.python-version', '.gitignore', '.gitattributes',
 )
 

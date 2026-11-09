@@ -27,6 +27,20 @@ class SetupTests(unittest.TestCase):
         v=(1,5,1,1);c=Fake(report(version=v),report(version=v))
         r=run_trial(c,reviewed('1.5.1.1'),detected(v))
         self.assertEqual(c.commands,[True]);self.assertFalse(r['automatic_readback_passed'])
+    def test_manual_game_confirmation_saves_and_enables_with_zero_status(self):
+        v=(1,5,1,1);current=detected(v)
+        trial=run_trial(Fake(report(version=v),report(version=v)),reviewed('1.5.1.1'),current)
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(RuntimeError):save_configuration(tmp,trial,current,False)
+            self.assertFalse((Path(tmp)/'Enable.cmd').exists())
+            save_configuration(tmp,trial,current,True)
+            c=Fake(report(version=v),report(version=v))
+            message=enable_saved(c,tmp)
+            self.assertEqual(c.commands,[True])
+            self.assertIn('does not expose an override-state acknowledgement',message)
+            saved=json.loads((Path(tmp)/'setup-profile.json').read_text())
+            self.assertTrue(saved['game_confirmed'])
+            self.assertFalse(saved['trial']['automatic_readback_passed'])
     def test_unknown_or_wrong_state_never_sends(self):
         for raw,p in [(report(version=(9,9,9,9)),None),(report(model=11),reviewed('1.1.8.5')),
                       (report(mode=3),reviewed('1.1.8.5')),(report(rim=1),reviewed('1.1.8.5'))]:

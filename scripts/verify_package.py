@@ -16,6 +16,7 @@ REQUIRED = {
     'BUILD-INFO.json', 'SHA256SUMS.txt', 'source/src/setup.spec',
     'source/src/launcher.py', 'source/scripts/build.py',
     'source/scripts/verify_package.py', 'source/requirements-build.txt',
+    'source/VALIDATION.md', 'source/CHANGELOG.md',
     'licenses/Python-LICENSE.txt', 'licenses/PyInstaller-COPYING.txt',
     'licenses/tcl8.6-license.terms', 'licenses/tk8.6-license.terms',
 }

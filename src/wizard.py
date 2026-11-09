@@ -113,7 +113,8 @@ class SetupWindow:
             self.test_text.set('Unrecognized firmware stays blocked. A byte-pattern match alone does not authorize a test.')
             self.message.set('This image/version needs review before the command can be tested.')
         else:
-            self.evidence_text.set('Command present in the reviewed firmware profile. '+self.evidence['basis'])
+            tested=' FFB has been confirmed on one CSL DD; you still need to test your own setup.' if self.profile.get('hardware_tested') else ''
+            self.evidence_text.set('Command present in the reviewed firmware profile. '+self.evidence['basis']+tested)
             if self.profile['readback']=='availability15':
                 self.test_text.set('The app will verify a reversible state change, then leave the override enabled for your game test.')
             else:

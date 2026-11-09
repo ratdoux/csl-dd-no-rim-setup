@@ -41,7 +41,16 @@
       "memory_sha256": "024d16681388af270f1ade439ff45469bae8f9795a675572720e8320217b6b8e",
       "encrypted_sha256": "74e52c17e5e91843b3d36d9844d0e1a829cf3eeecf2367f4ef4fbe5db342aade",
       "plaintext_sha256": "f69243df7b503c1d74a5d6e00efb5c047b65a490ba4555428af6ca8b78c2f8ca",
-      "hardware_tested": false,
+      "hardware_tested": true,
+      "hardware_validation": {
+        "date": "2026-11-09",
+        "setup": "One CSL DD with an 8 Nm supply, yellow PC compatibility mode, status profile 7, and no detected rim.",
+        "standalone_ffb_user_confirmed": true,
+        "game_ffb_user_confirmed": true,
+        "method": "DirectInput constant-force pulse at 20% for 1 second, followed by operator-confirmed game FFB.",
+        "power_cycle_retest_completed": false,
+        "notes": "The initial game attempt had no FFB. The game worked after standalone testing; the cause of that difference was not isolated. No reliable override-state acknowledgement is available."
+      },
       "review": "Command handler, enable/disable parameter, flag getter and force-output gate inspected.",
       "readback_note": "Command is present, but the examined status calculation does not read the override flag. Game confirmation is required; command delivery is not a state acknowledgement.",
       "blocks": [

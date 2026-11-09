@@ -16,9 +16,10 @@ Follow the setup steps, test with low-strength FFB in a game, then select
 the base. `Status.cmd` reads status and `Disable.cmd` sends the disable command.
 See [USER-GUIDE.txt](USER-GUIDE.txt) for the complete procedure and limitations.
 
-> **Firmware compatibility disclaimer:** The no-rim override has only been
-> tested on hardware running CSL DD firmware **1.1.8.5**. It is expected to work
-> on any CSL DD firmware that implements the same no-rim FFB command with the
+> **Firmware compatibility disclaimer:** No-rim FFB has been confirmed on
+> **1.1.8.5 and 1.5.1.1**, using the same CSL DD with an 8 Nm supply in yellow PC
+> compatibility mode. This is validation on one base, not every setup. It is
+> expected to work on other CSL DD firmware implementing the same command with the
 > same parameters and behavior, but this has not been verified on other
 > versions and is not guaranteed. Status reporting can differ between versions.
 > The app still blocks unreviewed firmware until a compatible profile is added;
@@ -27,7 +28,7 @@ See [USER-GUIDE.txt](USER-GUIDE.txt) for the complete procedure and limitations.
 | Firmware | Verification available |
 | --- | --- |
 | 1.1.8.5 | Reviewed and tested on a CSL DD with an 8 Nm supply. Setup checks a reversible status transition and requires game confirmation. |
-| 1.5.1.1 | Command reviewed offline. No reliable override flag readback; a manual game trial is required. Not hardware-tested by this project. |
+| 1.5.1.1 | Reviewed; standalone FFB and subsequent game FFB confirmed on the same base on 2026-11-09. No reliable override flag readback; each user must still confirm their own game trial. |
 | Other versions | Blocked until their command and status behavior have been reviewed. |
 
 The current profiles require base type 10, status profile 7, compatibility mode,
@@ -35,6 +36,15 @@ and no detected rim. Other models, modes, and status profiles are unsupported.
 The app can inspect a matching local firmware image, but cannot dump the device's
 flash. A version-based fallback is shown explicitly when no matching image is
 available. Matching a short byte pattern alone never authorizes a command.
+
+On 1.5.1.1, the initial game attempt had no FFB; a standalone test and a later
+game attempt worked. The reason for that difference has not been isolated,
+and a fresh power-cycle retest has not been completed. The application sends
+the existing override command; it does not automatically run a force pulse.
+See [VALIDATION.md](VALIDATION.md) for the observed results and their limits.
+
+Version 2.0.1 updates the 1.5.1.1 review record. An existing 1.5.1.1 saved profile
+from an older release needs Setup again because its profile fingerprint changes.
 
 ## Build on Windows x64
 
@@ -77,7 +87,7 @@ pinned and GitHub actions pinned to reviewed release commits. Successful runs
 attach the portable ZIP, checksum, and build metadata as a downloadable artifact
 for 30 days.
 
-Pushing a version tag such as `v2.0.0` also creates a **published GitHub Release**
+Pushing a version tag such as `v2.0.1` also creates a **published GitHub Release**
 after the build and verification succeed. The release includes the portable ZIP,
 its SHA-256 checksum, build metadata, and automatically generated release notes.
 Rerunning a tag's workflow updates its existing release assets. Tags containing
@@ -88,8 +98,8 @@ stops publication. For the current version, after committing the changes and
 configuring the GitHub remote:
 
 ```powershell
-git tag v2.0.0
-git push origin v2.0.0
+git tag v2.0.1
+git push origin v2.0.1
 ```
 
 Branch pushes, pull requests, and manual runs only produce build artifacts.

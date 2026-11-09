@@ -14,7 +14,7 @@ def main():
     p.add_argument('action',nargs='?',default='status',choices=['status','enable','disable','check-ui'])
     p.add_argument('--wheel-clear',action='store_true')
     p.add_argument('--json',action='store_true')
-    p.add_argument('--version',action='version',version='CSL DD No-Rim Setup 2.0.0')
+    p.add_argument('--version',action='version',version='CSL DD No-Rim Setup 2.0.1')
     a=p.parse_args()
     if a.action=='enable' and not a.wheel_clear:p.error('Clear the wheel and close games/FFB tests, then use --wheel-clear.')
     try:

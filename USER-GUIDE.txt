@@ -1,9 +1,10 @@
-CSL DD No-Rim Setup - Windows x64 - version 2.0.0
+CSL DD No-Rim Setup - Windows x64 - version 2.0.1
 
 FIRMWARE COMPATIBILITY DISCLAIMER
 
-The no-rim override has only been tested on hardware running CSL DD firmware
-1.1.8.5. It is expected to work on any CSL DD firmware that implements the same
+No-rim FFB has been confirmed on firmware 1.1.8.5 and 1.5.1.1, using the same
+CSL DD with an 8 Nm supply in yellow PC compatibility mode. This validates one
+base, not every setup. It is expected to work on other firmware implementing the same
 no-rim FFB command with the same parameters and behavior, but this has not been
 verified on other versions and is not guaranteed. Status reporting can differ.
 The app still blocks unreviewed firmware until a compatible profile is added;
@@ -67,8 +68,11 @@ CURRENT REVIEWED PROFILES
   Setup therefore offers a MANUAL GAME TRIAL. It checks USB write completion
   and continued identity/status communication, but does not claim the override
   state was acknowledged. Only the user's actual game test can confirm FFB.
-  This version has NOT been tested on our physical base. Each owner must test
-  and confirm their own setup before creating the launcher.
+  On 2026-11-09, standalone FFB and subsequent game FFB were confirmed on the
+  same physical CSL DD. Each owner must still test and confirm their own setup
+  before creating the launcher. The initial game attempt had no FFB; the game
+  worked after standalone testing. The reason was not isolated, and a fresh
+  power-cycle retest has not been completed. Setup does not run a force pulse.
   Daily Enable sends the command each time because this profile cannot read
   back the flag. Disable can report command delivery, not the flag's state.
 
@@ -84,6 +88,8 @@ After the user's game confirmation, setup-profile.json records:
 
 Enable.cmd always checks the connected device against that saved configuration.
 A changed firmware, device path/USB port, or review profile requires Setup again.
+Version 2.0.1 changes the 1.5.1.1 review record; older saved profiles for that
+firmware need confirmation again. A shared package never includes your profile.
 Windows device paths are connection identifiers, not cryptographic hardware
 serials; an identical device on the same port may be indistinguishable.
 Profiles are local settings, not signed security certificates. Do not copy a
@@ -118,9 +124,12 @@ and the required user confirmation. The pipeline verifies package checksums,
 CLI startup and GUI initialization after relocation, without external Python.
 Build checks do not send hardware commands or perform a game test.
 
-The 1.1.8.5 profile was tested on the original CSL DD. The 1.5.1.1 profile was
-reviewed offline only. An automated build cannot validate FFB on another base;
-each user must complete the setup trial and confirm their own game test.
+Both 1.1.8.5 and 1.5.1.1 were tested on the original CSL DD. The latter was
+confirmed with a 20% constant-force test lasting 1 second, then a game test.
+The diagnostic effect was stopped and unloaded afterward. These tests do not
+establish reliable flag readback or operation after every initialization path.
+An automated build cannot validate FFB on another base; each user must complete
+the setup trial and confirm their own game test. See source/VALIDATION.md.
 
 source/README.md describes how to rebuild. source/ contains the full source,
 including the build scripts, reviewed catalog, tests and firmware inspector.
