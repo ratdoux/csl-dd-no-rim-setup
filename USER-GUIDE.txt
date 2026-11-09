@@ -1,5 +1,12 @@
 CSL DD No-Rim Setup - Windows x64 - version 2.1.1
 
+DISCLAIMER - USE AT YOUR OWN RISK
+
+This software is provided "as is", without any warranty. You use it entirely
+at your own risk. To the fullest extent permitted by applicable law, the author
+and contributors are not responsible for hardware damage, personal injury,
+data loss, or any other loss or damage arising from its use.
+
 FIRMWARE COMPATIBILITY DISCLAIMER
 
 No-rim FFB has been confirmed on firmware 1.1.8.5 and 1.5.1.1, using the same

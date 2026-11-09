@@ -1,5 +1,11 @@
 # CSL DD No-Rim Setup
 
+> **Disclaimer — use at your own risk.** This software is provided "as is",
+> without any warranty. You use it entirely at your own risk. To the fullest
+> extent permitted by applicable law, the author and contributors are not
+> responsible for hardware damage, personal injury, data loss, or any other
+> loss or damage arising from its use.
+
 A Windows setup utility for using the CSL DD's existing no-rim force-feedback
 command. It detects the base, checks a reviewed firmware profile, runs a
 user-requested trial, and creates `Enable.cmd` after the user confirms that FFB
