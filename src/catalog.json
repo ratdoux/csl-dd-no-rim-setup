@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "product": "CSL DD",
+  "candidate_pattern": "70ccb30080cf500004003a00",
+  "profiles": {
+    "1.1.8.5": {
+      "version": "1.1.8.5",
+      "base_type": 10,
+      "status_profile": 7,
+      "readback": "availability15",
+      "memory_sha256": "510aabc031a7799eb3bcabb863bbacec8717c1ef7cb2b702cd7b173b85b25086",
+      "encrypted_sha256": "725690d9316cf463d0380867535970e795602788063256e1e35c67d3a8ae0b0a",
+      "plaintext_sha256": "2c3f3e53cae053389d1f36ecace5f9b6d4bc1974d9c0569c516f603693ff0f73",
+      "hardware_tested": true,
+      "review": "Command handler, enable/disable parameter, flag getter and force-output gate inspected.",
+      "readback_note": "Reversible 0/15 status transition verified on hardware.",
+      "blocks": [
+        {
+          "pc": "0x28f78",
+          "bytes": "0040eb0040779800060037004e70900004160200020000004e7090000040e800407798004e709000ef4f5000f7ff36006e2890000000e8009040780070ccb30080cf500004003a0001a5260010c0b300804878001000370001a526000040eb00804878000c003700"
+        },
+        {
+          "pc": "0x28fd2",
+          "bytes": "0000fa0000a52600104078000080fb000080fa0000000600"
+        },
+        {
+          "pc": "0x20c60",
+          "bytes": "d28f0200020000000080fb000000e00012003a00e4e5020002000000e40f5000aa003600e4e5020002000000e80f5000a600320010912400104078000080fb000000e000a1003a00b27a0200020000000080fb000000e0009c003a002ee60200020000000080fb000000e00097003a00f2618200"
+        },
+        {
+          "pc": "0x27780",
+          "bytes": "0400fa00204798000040eb00004f7800809b2600104078000080fb00e10f500009003200e4e5020002000000e40f500008003e00d28f0200020000000080fb000000e00003003a000040eb00004f78000a0037002e409000e74f500003003a001e4078006f4f7000040037002e409000e34f500001003a001e04a0001e80fb000080fa0000000600"
+        }
+      ]
+    },
+    "1.5.1.1": {
+      "version": "1.5.1.1",
+      "base_type": 10,
+      "status_profile": 7,
+      "readback": "manual",
+      "memory_sha256": "024d16681388af270f1ade439ff45469bae8f9795a675572720e8320217b6b8e",
+      "encrypted_sha256": "74e52c17e5e91843b3d36d9844d0e1a829cf3eeecf2367f4ef4fbe5db342aade",
+      "plaintext_sha256": "f69243df7b503c1d74a5d6e00efb5c047b65a490ba4555428af6ca8b78c2f8ca",
+      "hardware_tested": false,
+      "review": "Command handler, enable/disable parameter, flag getter and force-output gate inspected.",
+      "readback_note": "Command is present, but the examined status calculation does not read the override flag. Game confirmation is required; command delivery is not a state acknowledgement.",
+      "blocks": [
+        {
+          "pc": "0x2d580",
+          "bytes": "0040eb0040779800060037004e709000fe840200020000004e7090000040e800407798004e709000ef4f5000f7ff36006e2890000000e8009040780070ccb30080cf500004003a00a1e3260010c0b3008048780010003700a1e326000040eb00804878000c003700"
+        },
+        {
+          "pc": "0x2d5da",
+          "bytes": "0000fa00a0e32600104078000080fb000080fa0000000600"
+        },
+        {
+          "pc": "0x27b5a",
+          "bytes": "dad50200020000000080fb000000e00012003a00ee25020003000000e40f5000aa003600ee25020003000000e80f5000a600320050912400104078000080fb000000e000a1003a00a0aa0200020000000080fb000000e0009c003a0038260200030000000080fb000000e00097003a00"
+        },
+        {
+          "pc": "0x2a624",
+          "bytes": "0200fa000040eb00004f78000040eb00004f7800c0d72600104078000080fb00e10f500004003200ee25020003000000e40f500003003e000040eb00004f78000d003700e4a9020003000000e74f500003003a0080c0b300004f780006003700e4a9020003000000e34f500002003a0050c0b300004f78001e80fb000080fa00"
+        }
+      ]
+    }
+  }
+}

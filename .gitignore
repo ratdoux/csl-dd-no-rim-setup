@@ -1,0 +1,26 @@
+# Build environments and generated distributions
+.build-env/
+.venv/
+build/
+dist/
+release/
+.pyinstaller-cache/
+__pycache__/
+*.py[cod]
+
+# Local device configuration must never ship pre-confirmed
+setup-profile.json
+Enable.cmd
+*.log
+
+# Proprietary firmware and runtime binaries are not source files
+*.hex
+*.bin
+*.exe
+*.dll
+*.pyd
+*.zip
+
+# Editors
+.vscode/
+.idea/

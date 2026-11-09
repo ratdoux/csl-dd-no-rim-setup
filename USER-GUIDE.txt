@@ -1,0 +1,130 @@
+CSL DD No-Rim Setup - Windows x64 - version 2.0.0
+
+FIRST USE
+
+1. Extract the complete folder to a writable location, such as your Desktop.
+2. Connect one CSL DD in yellow PC compatibility mode. Normal Fanatec drivers
+   are still needed for gaming. Python is included; no separate install needed.
+3. Open CSL-DD-No-Rim-Setup.exe (or Setup.cmd).
+4. The app reads the base version and looks for matching installed firmware.
+   It can also inspect an encrypted or plaintext matching .hex firmware file.
+5. When a reviewed profile is available, clear the wheel, close games/FFB tests,
+   check the readiness box, and click "Test command and enable for game".
+6. Try steering and LOW-strength FFB in a game. Return to Setup and click
+   "It worked - create launcher" only if the test actually worked.
+7. Next time, double-click the newly created Enable.cmd in this same folder.
+
+Enable.cmd is deliberately absent until the user's trial and game confirmation
+are complete. No profile is pre-approved in the shared package.
+
+Status.cmd only reads status. Disable.cmd sends the reviewed disable command.
+
+WHAT "CHECK FIRMWARE" MEANS
+
+USB reports provide a firmware version, not a copy or cryptographic digest of
+the base's flash. This app does NOT dump or flash the base.
+
+For a matching local image, the app decrypts if needed, validates Intel HEX
+record checksums, checks the CSL DD/version header, and compares a canonical
+full-image hash plus reviewed instruction blocks with its built-in catalog.
+It searches standard Fanatec installation folders. It does not download or
+install firmware. Installers and ZIP archives must be extracted separately.
+
+If the exact local image is unavailable, a known official-version profile can
+be used. The UI explicitly identifies this version-based fallback. It assumes
+the base is running the corresponding official firmware; it is not a flash
+readback. A selected mismatched or unrecognized image is never accepted.
+
+A short command-like byte pattern in an unknown image is only a lead. It is
+NOT proof that the handler, parameter, disable command, output gating, and
+status interpretation all match. Unknown versions/images stay blocked pending
+review. This app is not a universal firmware disassembler or automatic proof
+of hardware safety. Supporting a new family requires extending the catalog
+after inspecting it, then testing on hardware.
+
+CURRENT REVIEWED PROFILES
+
+1.1.8.5
+  Command and status behavior were inspected and tested on a CSL DD with an
+  8 Nm supply, compatibility mode, status profile 7, and no detected rim.
+  Setup verifies a reversible 0/15 status change, then leaves the override
+  enabled for the user's game test. It handles either initial enabled state.
+  Normal daily Enable checks status and avoids resending when already enabled.
+
+1.5.1.1
+  The same enable/disable handler and force-output gate were found offline.
+  However, its examined system-report calculation no longer reads the override
+  flag. Byte 55 must NOT be interpreted as the 1.1.8.5 0/15 acknowledgement.
+  Setup therefore offers a MANUAL GAME TRIAL. It checks USB write completion
+  and continued identity/status communication, but does not claim the override
+  state was acknowledged. Only the user's actual game test can confirm FFB.
+  This version has NOT been tested on our physical base. Each owner must test
+  and confirm their own setup before creating the launcher.
+  Daily Enable sends the command each time because this profile cannot read
+  back the flag. Disable can report command delivery, not the flag's state.
+
+Other firmware versions, other wheelbase models, native red PC mode, console
+modes, and unreviewed status profiles are not automatically tested/enabled.
+
+WHAT IS SAVED
+
+After the user's game confirmation, setup-profile.json records:
+  - firmware, base type, status profile, and a hash of the Windows device path;
+  - the reviewed profile fingerprint and trial result;
+  - the explicit game confirmation and its time.
+
+Enable.cmd always checks the connected device against that saved configuration.
+A changed firmware, device path/USB port, or review profile requires Setup again.
+Windows device paths are connection identifiers, not cryptographic hardware
+serials; an identical device on the same port may be indistinguishable.
+Profiles are local settings, not signed security certificates. Do not copy a
+pre-confirmed profile as a substitute for testing another person's setup.
+
+The executable, _internal runtime folder, and settings must stay together.
+The source folder and licenses are included for inspection and redistribution.
+
+MOTOR BEHAVIOR AND PERSISTENCE
+
+Detection/image inspection never enables the motor. The test button explicitly
+enables FFB and leaves it enabled for the game trial. The app creates no force
+effect itself; a game or other application can produce forces afterward.
+Enable/disable commands clear effect slots when sent, so run before your game.
+
+A failed test attempts to disable and clearly reports whether cleanup was
+confirmed or merely sent. If disablement is uncertain, power off the base.
+Closing an unconfirmed trial asks whether to disable or leave it enabled.
+After saving, closing Setup leaves the working override enabled.
+
+The override lives in wheelbase RAM. A base restart clears it; rerun Enable.cmd.
+PC/USB reconnect persistence is not established. No background service or
+automatic startup is installed. There is no flashing, firmware update, rim
+identity spoofing, button emulation, network activity, or telemetry.
+
+BUILD AND VALIDATION
+
+The portable build bundles its Python and Tcl/Tk runtimes. BUILD-INFO.json
+records the actual build versions and Git revision. Fake-device tests cover
+transitions, manual-vs-automatic reporting, cleanup, identity/firmware changes,
+and the required user confirmation. The pipeline verifies package checksums,
+CLI startup and GUI initialization after relocation, without external Python.
+Build checks do not send hardware commands or perform a game test.
+
+The 1.1.8.5 profile was tested on the original CSL DD. The 1.5.1.1 profile was
+reviewed offline only. An automated build cannot validate FFB on another base;
+each user must complete the setup trial and confirm their own game test.
+
+source/README.md describes how to rebuild. source/ contains the full source,
+including the build scripts, reviewed catalog, tests and firmware inspector.
+
+LICENSE AND ATTRIBUTION
+
+This setup application is distributed under AGPL-3.0-only. It incorporates a
+firmware decryption implementation adapted from ProjectSerotonin/vlfx; complete
+corresponding source and the license are included. Earlier utility components
+also retain their MIT notice. Python, Tcl/Tk, and PyInstaller notices are in
+licenses/. No Fanatec firmware images or vendor SDK DLLs are bundled.
+
+https://github.com/ProjectSerotonin/vlfx
+https://github.com/ProjectSerotonin/vlfx/blob/f9b97cbf974d870d83392a71a66ca8663987e1e8/src/fanatec_decrypt.rs
+https://pyinstaller.org/en/stable/spec-files.html
+https://assets.fanatec.com/fanatec-pwa/image/upload/downloads-prod/pdfs/P1904A-CSL-DD-Manual-EN_03.pdf
